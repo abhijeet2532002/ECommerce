@@ -40,5 +40,4 @@ export default class Middleware {
         }
         return true; // ✅ Password is valid
     };
-
 }

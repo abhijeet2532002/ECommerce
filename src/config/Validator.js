@@ -16,4 +16,8 @@ export default class Validator {
     usernameValidator = (username) => {
         return this.usernameRegex.test(username);  
     };
+
+    pincodeValidator = (pincode) => {
+        return /^[0-9]{6}$/.test(pincode); // Ensures it contains exactly 6 digits
+    };
 }
