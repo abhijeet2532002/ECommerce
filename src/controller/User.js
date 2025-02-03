@@ -31,6 +31,7 @@ export default class User {
     async login(req, res) {
         try {
             const { UserId, password } = req.body;
+            
             const user = await UserDB.findOne({
                 $or: [
                     { email: UserId },
@@ -38,7 +39,7 @@ export default class User {
                     { phone: UserId }
                 ]
             });
-
+            
             if (!user) return res.status(404).json({ message: "User not found" });
 
             const isPasswordValid = await comparePassword(password, user.password);

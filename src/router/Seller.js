@@ -6,7 +6,7 @@ const { createBusiness, getDetailsOfBusinessById, getAllBusinessDetails, deleteB
 
 router.post('/createBusiness', createBusiness);
 router.get('/getAllBusiness', getAllBusinessDetails);
-router.get('/getBusiness', getDetailsOfBusinessById);
+router.get('/getBusiness/:id', getDetailsOfBusinessById);
 router.delete('/removerBusiness', deleteBusinessById);
 router.put('/modifyBusiness', modifyBusinessDetailsById);
 

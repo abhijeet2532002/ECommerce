@@ -1,12 +1,12 @@
 import mongoose from 'mongoose';
 import Validator from '../config/Validator.js';
-const { emailValidator, usernameValidator, validatePhone ,pincodeValidator} = new Validator();
+const { emailValidator, usernameValidator, validatePhone, pincodeValidator } = new Validator();
 
 const userSchema = new mongoose.Schema({
     userName: {
         type: String,
         trim: true,
-        required: [true,"Username is required..."],
+        required: [true, "Username is required..."],
         unique: true,
         validate: {
             validator: (value) => usernameValidator(value),
@@ -34,12 +34,14 @@ const userSchema = new mongoose.Schema({
     },
     userRole: {
         type: String,
-        trim: true
+        required: true,
+        enum: ['Customer', 'Seller', "Admin"],
+        default: 'Customer'
     },
     cart: [{
         type: mongoose.Schema.Types.ObjectId,
         trim: true,
-        ref: 'Product'        
+        ref: 'Product'
     }],
     wishlist: [{
         type: mongoose.Schema.Types.ObjectId,
@@ -108,8 +110,7 @@ const userSchema = new mongoose.Schema({
         ref: 'Issue'
     }],
     image: {
-        type: String,
-        trim: true
+        type: String
     }
 }, {
     timestamps: true

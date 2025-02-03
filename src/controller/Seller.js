@@ -26,9 +26,30 @@ export default class Seller {
         }
     }
 
-    getDetailsOfBusinessById = (req, res) => { }
+    getDetailsOfBusinessById = async (req, res) => {
+        try {
+            const seller = await SellerDB.findById(req.params.id).populate('user');
+            if (!seller)
+                return res.status(404).json({ "message": "Bussiness not established " });
 
-    getAllBusinessDetails = (req, res) => { }
+            return (req.user.userRole === "Admin" || seller.user === req.user.userId) ?
+                res.status(200).json(seller) :
+                res.status(403).json({ message: "invalid user to get these details" });
+
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
+
+    getAllBusinessDetails = async (req, res) => {
+        try {
+            return (req.user.userRole === "Admin") ?
+                res.status(200).json(await SellerDB.findById(req.params.id).populate('user')) :
+                res.status(403).json({ message: "invalid user to get these details" });
+        } catch (error) {
+            return res.status(500).json({ error: error.message });
+        }
+    }
 
     deleteBusinessById = (req, res) => { }
 
