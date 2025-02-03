@@ -1,25 +1,69 @@
 import mongoose from 'mongoose';
+import Validator from '../config/Validator.js';
+
+const { emailValidator, validatePhone, pincodeValidator } = new Validator();
 
 const sellerSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'User'
+        ref: 'User',
+        required: [true, "Please enter user id"],
+        trim: true
     },
     businessName: {
         type: String,
-        required: true
+        required: [true, "Please enter business name"],
     },
     email: {
         type: String,
-        match: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/,
-        required: true
+        trim: true,
+        required: [true, "Email is required..."],
+        unique: true,
+        validate: {
+            validator: (value) => emailValidator(value),
+            message: "Invalid email Id format"
+        }
+    },
+    phone: {
+        type: String,
+        trim: true,
+        required: [true, "Phone number is required..."],
+        unique: true,
+        validate: {
+            validator: (value) => validatePhone(value),
+            message: "Invalid phone number format",
+        }
     },
     address: {
-        street: { type: String, required: true },
-        city: { type: String, required: true },
-        state: { type: String, required: true },
-        country: { type: String, required: true },
-        pincode: { type: String, required: true }
+        street: {
+            type: String,
+            trim: true,
+            required: [true, "Street is required..."],
+        },
+        city: {
+            type: String,
+            trim: true,
+            required: [true, "City is required..."],
+        },
+        state: {
+            type: String,
+            trim: true,
+            required: [true, "State is required..."],
+        },
+        country: {
+            type: String,
+            trim: true,
+            required: [true, "Country is required..."],
+        },
+        pincode: {
+            type: String,
+            trim: true,
+            required: [true, "Pincode is required..."],
+            validate: {
+                validator: (value) => pincodeValidator(value),
+                message: "PIN Code is only the length of 6 Character"
+            }
+        }
     },
     product: [{
         type: mongoose.Schema.Types.ObjectId,
