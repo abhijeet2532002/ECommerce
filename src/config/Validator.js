@@ -10,10 +10,10 @@ export default class Validator {
     };
 
     emailValidator = (email) => {
-        return emailRegex.test(email);
+        return this.emailRegex.test(email);  
     };
 
     usernameValidator = (username) => {
-        return usernameRegex.test(username);
+        return this.usernameRegex.test(username);  
     };
 }

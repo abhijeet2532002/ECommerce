@@ -11,20 +11,22 @@ import DeliveryPartner from './DeliveryPartner.js';
 import Category from './Category.js';
 import SupportAgent from './SupportAgent.js';
 import Middleware from '../config/MiddleWare.js';
+import Seller from './Seller.js';
 
 const router = express.Router();
 const { Auth } = new Middleware();
 
 router.use('/User', User);
-router.use('/Issue',Auth, Issue);
-router.use('/Order',Auth, Order);
-router.use('/Rating',Auth, Rating);
-router.use('/Wishlist',Auth, Wishlist);
-router.use('/Cart',Auth, Cart);
-router.use('/Stock',Auth, Stock);
-router.use('/Product',Auth, Product);
-router.use('/DeliveryPartner',Auth, DeliveryPartner);
-router.use('/Category',Auth, Category);
-router.use('/supportAgent',Auth, SupportAgent);
+router.use('/seller', Auth, Seller)
+router.use('/Issue', Auth, Issue);
+router.use('/Order', Auth, Order);
+router.use('/Rating', Auth, Rating);
+router.use('/Wishlist', Auth, Wishlist);
+router.use('/Cart', Auth, Cart);
+router.use('/Stock', Auth, Stock);
+router.use('/Product', Auth, Product);
+router.use('/DeliveryPartner', Auth, DeliveryPartner);
+router.use('/Category', Auth, Category);
+router.use('/supportAgent', Auth, SupportAgent);
 
 export default router;

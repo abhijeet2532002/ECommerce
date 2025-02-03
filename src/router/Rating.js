@@ -2,7 +2,7 @@ import express from 'express';
 import Rating from '../controller/Rating.js';
 
 const router = express.Router();
-const { createRating,getAllRatingDetails,getDetailsOfRatingById,modifyRatingDetailsById,deleteRatingById } = new Rating();
+const { createRating, getAllRatingDetails, getDetailsOfRatingById, modifyRatingDetailsById, deleteRatingById } = new Rating();
 
 router.post('/createRating', createRating);
 router.get('/getAllRating', getAllRatingDetails);

@@ -7,11 +7,13 @@ dotenv.config();
 
 export default class Middleware {
     Auth = (req, res, next) => {
-        if (!req.header('Authorization')) {
-            return res.status(401).send('Access denied. No token provided.');
+        const token = req.headers.cookie.split('=')[1] || req.headers.Authorization.split(' ')[1];
+
+        if (!token) {
+            return res.status(401).send('Access denied.  Please login first ......');
         }
         try {
-            const decoded = jwt.verify(req.header('Authorization'), process.env.SECRET_KEY);
+            const decoded = jwt.verify(token, process.env.SECRET_KEY);
             req.user = decoded;
             next();
         } catch (err) {

@@ -43,10 +43,6 @@ const userSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'Order'
     }],
-    address: [{
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Address'
-    }],
     phone: {
         type: String,
         required: true,
@@ -74,8 +70,6 @@ const userSchema = new mongoose.Schema({
 }, {
     timestamps: true
 });
-
-userSchema.index({ authToken: 1 }, { expireAfterSeconds: 60 });
 
 const User = mongoose.model('User', userSchema);
 export default User;
